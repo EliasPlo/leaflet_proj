@@ -1,0 +1,29 @@
+[
+  {
+    "id": "1",
+    "latlng": [
+      62.605079,
+      29.741751
+    ],
+    "text": "Ensimmäinen merkintä",
+    "originalText": "Ensimmäinen merkintä"
+  },
+  {
+    "id": "3",
+    "latlng": [
+      62.6082,
+      29.7388
+    ],
+    "text": "Kolmas merkintä",
+    "originalText": "Kolmas merkintä"
+  },
+  {
+    "id": "4",
+    "latlng": [
+      62.6025,
+      29.9354
+    ],
+    "text": "Neljäs merkintä",
+    "originalText": "Neljäs merkintä"
+  }
+]

@@ -1,62 +1,90 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
+import axios from 'axios';
 import '../App.css'
 
-// Määrittelee LocationMarker-komponentin, joka hallitsee kartalla olevia markkereita.
 function LocationMarker() {
-    // useState-hook luo tilan markkereille ja tarjoaa funktion niiden päivittämiseen.
     const [markers, setMarkers] = useState([]);
 
-    // useMapEvents-hook kuuntelee kartan tapahtumia. Tässä tapauksessa reagoidaan kartan klikkauksiin.
+    useEffect(() => {
+        // Hae tallennetut merkinnät backendistä
+        const fetchMarkers = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/api/markers');
+                setMarkers(response.data);
+            } catch (error) {
+                console.error('Virhe merkintöjen lataamisessa:', error);
+            }
+        };
+
+        fetchMarkers();
+    }, []);
+
     useMapEvents({
         click(e) {
-            // Luo uuden markerin klikkauskohdassa, alustaa tekstikentän tyhjäksi ja tallentaa alkuperäisen tekstin.
             const newMarker = {
                 latlng: e.latlng,
                 text: "", 
                 originalText: "" 
             };
-            // Lisää uuden markerin markkereiden listaan.
             setMarkers([...markers, newMarker]);
         }
     });
 
-    // Päivittää markerin tekstiä sen indeksin perusteella.
-    const updateMarkerText = (text, idx) => {
+    /*const updateMarkerText = (text, idx) => {
         const updatedMarkers = [...markers];
         updatedMarkers[idx].text = text;
         setMarkers(updatedMarkers);
-    };
+    };*/
 
-    // Tallentaa markerin tekstin alkuperäiseksi tekstin, kun käyttäjä painaa "Tallenna".
-    const saveText = (idx) => {
+    const saveText = async (idx) => {
         const updatedMarkers = [...markers];
-        updatedMarkers[idx].originalText = updatedMarkers[idx].text;
-        setMarkers(updatedMarkers);
+        const marker = updatedMarkers[idx];
+    
+        try {
+            const response = await axios.post('http://localhost:3001/api/markers', marker);
+            if (!marker.id) {
+                // Aseta ID backendin palauttamasta vastauksesta
+                updatedMarkers[idx].id = response.data.id;
+            }
+            setMarkers(updatedMarkers);
+        } catch (error) {
+            console.error('Virhe merkinnän tallentamisessa:', error);
+        }
     };
 
-    // Palauttaa markerin tekstin alkuperäiseksi, kun käyttäjä painaa "Kumoa".
-    const undoText = (idx) => {
+    /*const undoText = (idx) => {
         const updatedMarkers = [...markers];
         updatedMarkers[idx].text = updatedMarkers[idx].originalText;
         setMarkers(updatedMarkers);
+    };*/
+
+    const deleteMarker = async (id) => {
+        try {
+            await axios.delete(`http://localhost:3001/api/markers/${id}`);
+            setMarkers((prevMarkers) => prevMarkers.filter((marker) => marker.id !== id));
+        } catch (error) {
+            console.error('Virhe merkinnän poistamisessa:', error);
+        }
     };
 
-    // Renderöi kaikki markerit kartalle ja sisältää kunkin markerin popup-ikkunan tekstin muokkaamista varten.
     return (
         <>
             {markers.map((marker, idx) => (
                 <Marker key={idx} position={marker.latlng}>
                     <Popup>
-                        <textarea
+                    <textarea
                             value={marker.text}
-                            onChange={(e) => updateMarkerText(e.target.value, idx)}
-                            placeholder="Kirjoita jotain..."
+                            onChange={(e) => {
+                                const updatedMarkers = [...markers];
+                                updatedMarkers[idx].text = e.target.value;
+                                setMarkers(updatedMarkers);
+                            }}
                             style={{ width: '200px', height: '100px' }}
                         />
                         <div>
                             <button onClick={() => saveText(idx)} style={{ margin: '5px' }}>Tallenna</button>
-                            <button onClick={() => undoText(idx)} style={{ margin: '5px' }}>Kumoa</button>
+                            <button onClick={() => deleteMarker(marker.id)} style={{ margin: '5px', color: 'red' }}>Poista</button>
                         </div>
                     </Popup>
                 </Marker>
@@ -65,7 +93,6 @@ function LocationMarker() {
     );
 }
 
-// Pääkomponentti, joka sisältää kartan ja käyttää LocationMarker-komponenttia markkereiden hallintaan.
 const MapComponent = () => {
     return (
         <MapContainer center={[62.605079, 29.741751]} zoom={13} style={{ height: '700px', width: '100%' }}>
@@ -78,4 +105,4 @@ const MapComponent = () => {
     );
 };
 
-export default MapComponent; // Vienti mahdollistaa MapComponentin käytön muualla sovelluksessa.
+export default MapComponent; 

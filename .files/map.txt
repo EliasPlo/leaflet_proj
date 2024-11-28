@@ -102,7 +102,18 @@ function App() {
 
 export default App;
 
+tee Admin ja perus käyttäjä puolet eli admin voi tehdä ja muokata merkintojä ja peruskäyttäjä voi tarkastella merkintojä joita on tehty. 
+Admin puoleen on kirjtuminen tapahtuu localhost:3000/login (Components/Login.js)
+muuta niin että localhost:3000/ tulee etu sivu sovellukselle (Components/FrontPage.js)
+tee myös admin paneeli localhost:3000/panel jossa on lista kaikista merkinnöistä jotka ovat kartalla (Components/AdminPanel.js)
+
+perus käyttäjällä näkyy kirjadu nappi oikeassa ylä kulmassa
+kun kirtuminen onnistui niin oikeaan yläkulmaan tulee AdminPanel nappi ja kirjadu ulos nappi ja 
+kun on kirtunut niin voi muokata, poistaa ja lisätä kartta merkintojä
+
+käyttäjä tiedot ovat backend/data/users.json tiedostossa
+
+
 
 tee project/server eli sovellukselle backend puoli johon tallentaan kartalle tehdyt merkinnät
 
-tee myös Admin ja perus käyttäjä puolet eli admin voi tehdä ja muokata merkintojä ja peruskäyttäjä voi tarkastella merkintojä joita on tehty. Admin puoleen on kirjtuminen 
