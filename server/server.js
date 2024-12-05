@@ -63,6 +63,65 @@ app.post('/api/login', (req, res) => {
     }
 });
 
+// Lisää uusi reitti käyttäjien hakemiseen
+app.get('/api/users', (req, res) => {
+    try {
+        const users = JSON.parse(fs.readFileSync(USERS_FILE));
+        // Suodata salasanat pois vastauksesta
+        const usersWithoutPasswords = users.map(({ password, ...rest }) => rest);
+        res.status(200).json(usersWithoutPasswords);
+    } catch (error) {
+        res.status(500).json({ message: 'Virhe käyttäjien hakemisessa.' });
+    }
+});
+
+// Lisää uusi käyttäjä (adminille)
+app.post('/api/users', (req, res) => {
+    try {
+        const { username, password, role } = req.body;
+
+        if (!username || !password || !role) {
+            return res.status(400).json({ message: 'Kaikki kentät (username, password, role) ovat pakollisia.' });
+        }
+
+        const users = JSON.parse(fs.readFileSync(USERS_FILE));
+
+        // Tarkista, ettei käyttäjänimi ole jo olemassa
+        if (users.find((user) => user.username === username)) {
+            return res.status(400).json({ message: 'Käyttäjänimi on jo olemassa.' });
+        }
+
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        const newUser = { username, password: hashedPassword, role };
+
+        users.push(newUser);
+
+        fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+        res.status(201).json({ message: 'Käyttäjä lisätty.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Virhe käyttäjän lisäämisessä.' });
+    }
+});
+
+// Poista käyttäjä (adminille)
+app.delete('/api/users/:username', (req, res) => {
+    try {
+        const username = req.params.username;
+        const users = JSON.parse(fs.readFileSync(USERS_FILE));
+        const updatedUsers = users.filter((user) => user.username !== username);
+
+        if (users.length === updatedUsers.length) {
+            return res.status(404).json({ message: 'Käyttäjää ei löytynyt.' });
+        }
+
+        fs.writeFileSync(USERS_FILE, JSON.stringify(updatedUsers, null, 2));
+        res.status(200).json({ message: 'Käyttäjä poistettu.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Virhe käyttäjän poistamisessa.' });
+    }
+});
+
+
 // API-reitit
 // Hae kaikki merkinnät
 app.get('/api/markers', (req, res) => {

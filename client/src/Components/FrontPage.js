@@ -9,7 +9,10 @@ function FrontPage() {
       <h1>Welcome to the Map Application</h1>
       <p>Explore the map and add or view markers.</p>
       <Link to="/login">
-        <button>Login</button>
+        <button>Kirjautuminen</button>
+      </Link>
+      <Link to="/map">
+        <button>Karttaan</button>
       </Link>
     </div>
   );
