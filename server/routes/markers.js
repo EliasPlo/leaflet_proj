@@ -14,8 +14,21 @@ router.get('/', async (req, res) => {
 
 // Lisää uusi merkintä
 router.post('/', async (req, res) => {
-    const { latitude, longitude, text } = req.body;
-    const marker = new Marker({ latitude, longitude, text });
+    const { latlng, text, name, createdate, editdate, editorName } = req.body;
+
+    // Tarkista, että nimi on annettu
+    if (!name) {
+        return res.status(400).json({ error: 'Nimi on pakollinen.' });
+    }
+
+    const marker = new Marker({
+        latlng,
+        text,
+        name,
+        createdate: createdate || new Date().toISOString(),
+        editdate,
+        editorName
+    });
 
     try {
         const savedMarker = await marker.save();
@@ -28,15 +41,27 @@ router.post('/', async (req, res) => {
 // Päivitä merkintä
 router.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { text } = req.body;
+    const { text, name, editorName } = req.body;
+
+    // Tarkista, että nimi on annettu
+    if (!name) {
+        return res.status(400).json({ error: 'Nimi on pakollinen.' });
+    }
 
     try {
-        const updatedMarker = await Marker.findByIdAndUpdate(
-            id,
-            { text },
-            { new: true }
-        );
-        res.json(updatedMarker);
+        const updatedMarker = await Marker.findById(id);
+        if (!updatedMarker) {
+            return res.status(404).json({ error: 'Merkintää ei löytynyt.' });
+        }
+
+        // Päivitä kentät
+        updatedMarker.text = text;
+        updatedMarker.name = name;
+        updatedMarker.editdate = new Date().toISOString();
+        updatedMarker.editorName = editorName;
+
+        const savedMarker = await updatedMarker.save();
+        res.json(savedMarker);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -48,7 +73,7 @@ router.delete('/:id', async (req, res) => {
 
     try {
         await Marker.findByIdAndDelete(id);
-        res.json({ message: 'Marker deleted successfully' });
+        res.json({ message: 'Merkintä poistettu onnistuneesti.' });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

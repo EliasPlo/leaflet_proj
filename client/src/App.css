@@ -88,6 +88,10 @@ button {
   transition: background-color 0.3s ease;
 }
 
+.divmark {
+  border: 1px black;
+}
+
 button:hover {
   background-color: #357ABD;
 }

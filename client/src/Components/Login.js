@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css'
+import '../Global.css';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -48,7 +48,7 @@ function Login() {
 
   return (
     <div className="login">
-      <h1>Login</h1>
+      <h1>Kirjaudu</h1>
       <input
         type="text"
         placeholder="Username"

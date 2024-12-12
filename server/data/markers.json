@@ -1,29 +1,74 @@
 [
   {
     "id": "1",
-    "latlng": [
-      62.605079,
-      29.741751
-    ],
+    "latlng": {
+      "lat": 62.605079,
+      "lng": 29.741751
+    },
     "text": "Ensimmäinen merkintä",
     "originalText": "Ensimmäinen merkintä"
   },
   {
     "id": "3",
-    "latlng": [
-      62.6082,
-      29.7388
-    ],
+    "latlng": {
+      "lat": 62.6082,
+      "lng": 29.7388
+    },
     "text": "Kolmas merkintä",
     "originalText": "Kolmas merkintä"
   },
   {
     "id": "4",
-    "latlng": [
-      62.6025,
-      29.9354
-    ],
+    "latlng": {
+      "lat": 62.6025,
+      "lng": 29.9354
+    },
     "text": "Neljäs merkintä",
     "originalText": "Neljäs merkintä"
+  },
+  {
+    "latlng": {
+      "lat": 60.16821984568382,
+      "lng": 24.956329464912415
+    },
+    "text": "pres claste 2",
+    "originalText": "112",
+    "id": "6f77d891-6a21-4e9b-9845-652ce3c57ab1"
+  },
+  {
+    "latlng": {
+      "lat": 62.60218933107035,
+      "lng": 29.757156372070316
+    },
+    "text": "kadd",
+    "name": "user1",
+    "createdate": "2024-12-12T10:52:40.013Z",
+    "editdate": "2024-12-12T11:00:17.579Z",
+    "editorName": "user2",
+    "id": "46e876d5-0d50-486a-ada6-6f3af34efaae"
+  },
+  {
+    "latlng": {
+      "lat": 62.60571910778647,
+      "lng": 29.757467508316044
+    },
+    "text": "testi 23",
+    "name": "user23",
+    "createdate": "2024-12-12T11:08:46.429Z",
+    "editdate": "2024-12-12T11:10:09.884Z",
+    "editorName": "user21",
+    "id": "dce87e64-0b2d-488f-91aa-264b07e6b6e7"
+  },
+  {
+    "latlng": {
+      "lat": 62.599207206729105,
+      "lng": 29.76033210754395
+    },
+    "text": "Careöocum",
+    "name": "asia 11",
+    "createdate": "2024-12-12T11:14:24.817Z",
+    "editdate": "2024-12-12T11:14:48.201Z",
+    "editorName": "asia 11",
+    "id": "b6e4c007-3736-4524-bcfb-586f81956ada"
   }
 ]

@@ -1,0 +1,206 @@
+/* General styling for the login container */
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+/* Login form title */
+.login h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Input fields styling */
+.login input[type="text"],
+.login input[type="password"] {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.login input[type="text"]:focus,
+.login input[type="password"]:focus {
+    border-color: #4caf50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+/* Error message styling */
+.login p {
+    color: red;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+/* Login button styling */
+.login button {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login button:hover {
+    background-color: #45a049;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .login input[type="text"],
+    .login input[type="password"],
+    .login button {
+        width: 90%;
+    }
+}
+
+/* General styling for the front-page container */
+.front-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #e8f4f8;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Title styling */
+.front-page h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Paragraph styling */
+.front-page p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Buttons styling */
+.front-page button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.front-page button:hover {
+    background-color: #0056b3;
+}
+
+/* Link styling */
+.front-page a {
+    text-decoration: none;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+    .front-page h1 {
+        font-size: 2rem;
+    }
+
+    .front-page p {
+        font-size: 1rem;
+    }
+
+    .front-page button {
+        width: 80%;
+        font-size: 14px;
+    }
+}
+
+/* Global.css */
+
+.panel-div {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.panel-h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.panel-ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.marker-div {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.panel-text1 {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.panel-text2 {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.panel-button {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.panel-button:hover {
+    background-color: #c9302c;
+}
+
+.marker-div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.marker-div b {
+    display: block;
+    margin-bottom: 5px;
+}

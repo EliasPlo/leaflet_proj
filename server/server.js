@@ -24,7 +24,7 @@ if (!fs.existsSync(USERS_FILE)) {
     const defaultUsers = [
         {
             username: 'admin',
-            password: bcrypt.hashSync('adminpass', 10), // Hashattu salasana
+            password: 'pass',
             role: 'admin',
         },
         {
